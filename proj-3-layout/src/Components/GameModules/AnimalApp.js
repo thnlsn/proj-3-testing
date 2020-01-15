@@ -3,14 +3,14 @@ import '../../App.css';
 import { Link } from 'react-router-dom';
 
 function AnimalApp() {
-  return (
-    <div>
-        <h1>Animal App</h1>
-        <Link to="/mainapp">
-        <div className="back-arrow"></div>
-        </Link>
-    </div>
-  );
+    return (
+        <div>
+            <h1>Animal App</h1>
+            <Link to='/mainapp'>
+                <div className='back-arrow'></div>
+            </Link>
+        </div>
+    );
 }
 
 export default AnimalApp;
