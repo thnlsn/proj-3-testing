@@ -3,3 +3,5 @@
 // there are the types needed for this application
 export const GET_USER = 'GET_USER';
 export const SET_LOADING = 'SET_LOADING';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';

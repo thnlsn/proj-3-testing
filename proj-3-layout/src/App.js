@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 import Nav from './components/Nav';
 
 // pages
-import SignUp from './components/SignUp';
-import Login from './components/Login';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
 import MainApp from './components/MainApp';
 
 // game modules
@@ -31,7 +31,7 @@ function App() {
                     <Nav />
                     <Switch>
                         <Route path='/' exact component={Home} />
-                        <Route path='/signup' component={SignUp} />
+                        <Route path='/register' component={Register} />
                         <Route path='/login' component={Login} />
                         <Route path='/mainapp' component={MainApp} />
 
@@ -53,10 +53,10 @@ function App() {
 const Home = () => (
     <div>
         <h1>Home Page!</h1>
-        <Link to='/SignUp'>
-            <h3>Sign Up</h3>
+        <Link to='/register'>
+            <h3>Register</h3>
         </Link>
-        <Link to='/Login'>
+        <Link to='/login'>
             <h3>Login</h3>
         </Link>
     </div>
