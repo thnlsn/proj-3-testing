@@ -14,9 +14,10 @@ import {
 
 const UserState = props => {
     const initialState = {
+        token: localStorage.getItem('token'),
         isAuthenticated: false,
-        user: {},
-        loading: false
+        loading: false,
+        user: {}
     };
 
     const [state, dispatch] = useReducer(UserReducer, initialState);
@@ -59,17 +60,6 @@ const UserState = props => {
     //▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     // CLEAR_ERRORS:
     const clearErrors = () => console.log('clearError');
-
-    //▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-    // GET_USER: Get the info for the logged in User
-    const getUser = async username => {
-        setLoading();
-
-        const res = await axios.get(`http://localhost:8000/api/auth`);
-        console.log(res.data);
-
-        dispatch({ type: GET_USER, payload: res.data });
-    };
 
     //▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     // Set Loading

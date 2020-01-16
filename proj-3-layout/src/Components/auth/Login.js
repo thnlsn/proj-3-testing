@@ -16,12 +16,12 @@ const Login = () => {
     };
 
     return (
-        <div className='container'>
+        <div className='container w-50 p-3'>
             <h1>
                 Account <span className='text-primary'>Login</span>
             </h1>
             <form onSubmit={onSubmit}>
-                <div className='form-group'>
+                <div className='form-group  text-left'>
                     <label htmlFor='email'>Email Address</label>
                     <input
                         className='form-control'
@@ -31,7 +31,7 @@ const Login = () => {
                         onChange={onChange}
                     />
                 </div>
-                <div className='form-group'>
+                <div className='form-group  text-left'>
                     <label htmlFor='password'>Password</label>
                     <input
                         className='form-control'
