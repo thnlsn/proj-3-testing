@@ -1,28 +1,42 @@
 import React, { useState, useContext } from 'react';
 import UserContext from '../../context/user/userContext';
+import AlertContext from '../../context/alert/alertContext';
 
 const Register = () => {
     const userContext = useContext(UserContext);
-
     const { register } = userContext;
+
+    const alertContext = useContext(AlertContext);
+    const { setAlert, removeAlert } = alertContext;
 
     const [user, setUser] = useState({
         name: '',
         email: '',
-        password: ''
+        password: '',
+        password2: ''
     });
 
-    const { name, email, password } = user;
+    const { name, email, password, password2 } = user;
 
     const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
     const onSubmit = e => {
         e.preventDefault();
-        register({
-            name,
-            email,
-            password
-        });
+
+        // I want to add an else/if here to remove alert if one exists already
+
+        if (name === '' || email === '' || password === '') {
+            setAlert('Please enter all fields', 'danger');
+        } else if (password !== password2) {
+            setAlert('Passwords do not match', 'danger');
+        } else {
+            register({
+                name,
+                email,
+                password,
+                password2
+            });
+        }
     };
 
     return (
@@ -55,9 +69,19 @@ const Register = () => {
                     <label htmlFor='password'>Password</label>
                     <input
                         className='form-control'
-                        type='text'
+                        type='password'
                         name='password'
                         value={password}
+                        onChange={onChange}
+                    />{' '}
+                </div>
+                <div className='form-group text-left'>
+                    <label htmlFor='password2'>Confirm Password</label>
+                    <input
+                        className='form-control'
+                        type='password'
+                        name='password2'
+                        value={password2}
                         onChange={onChange}
                     />
                 </div>

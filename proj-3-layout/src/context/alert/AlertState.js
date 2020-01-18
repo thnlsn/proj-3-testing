@@ -4,7 +4,7 @@
 import React, { useReducer } from 'react';
 import uuid from 'uuid';
 import AlertContext from './alertContext';
-import AlertReducer from './alertReducer';
+import alertReducer from './alertReducer';
 import { SET_ALERT, REMOVE_ALERT } from '../types';
 
 const AlertState = props => {

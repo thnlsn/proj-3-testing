@@ -6,7 +6,7 @@ const Login = () => {
         password: ''
     });
 
-    const { username, email, password } = user;
+    const { email, password } = user;
 
     const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
