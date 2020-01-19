@@ -10,6 +10,13 @@ import {
 // GithubState dispaches actions here, ad depending on the TYPE it does something, maybe with a payload...
 export default (state, action) => {
     switch (action.type) {
+        case USER_LOADED:
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+                user: action.payload
+            };
         case REGISTER_SUCCESS:
             localStorage.setItem('token', action.payload.token); // saving the token to headings
             return {
@@ -18,7 +25,8 @@ export default (state, action) => {
                 isAuthenticated: true,
                 loading: false
             };
-        case REGISTER_FAIL:
+        case REGISTER_FAIL: // both these cases do the same thing
+        case AUTH_ERROR: // both these cases do the same thing
             localStorage.removeItem('token'); // removing any tokens from storage
             return {
                 ...state,
