@@ -4,7 +4,10 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     GET_USER,
-    SET_LOADING
+    SET_LOADING,
+    USER_LOADED,
+    AUTH_ERROR,
+    CLEAR_ERRORS
 } from '../types';
 
 // GithubState dispaches actions here, ad depending on the TYPE it does something, maybe with a payload...
@@ -35,6 +38,11 @@ export default (state, action) => {
                 loading: false,
                 user: null,
                 error: action.payload // setting error in the payload to the one in msg in users.js
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
             };
         case GET_USER:
             return {

@@ -5,28 +5,33 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import UserContext from './userContext';
 import UserReducer from './userReducer';
+import setAuthToken from '../../utils/setAuthToken'; // needed to set the token so it is avaiable elsewhere
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
-    GET_USER,
-    SET_LOADING
+    SET_LOADING,
+    USER_LOADED,
+    AUTH_ERROR,
+    CLEAR_ERRORS
 } from '../types';
 
 const UserState = props => {
     const initialState = {
-        token: localStorage.getItem('token'),
+        token: localStorage.getItem('token'), // token will be updated in local storage
         isAuthenticated: false,
-        loading: false,
-        user: {}
+        loading: false, // for if we want to display a loader icon on true
+        user: {},
+        error: null // initial value of error is null, but will be updated and displayed manually when something goes wrong to let the user know
     };
 
     const [state, dispatch] = useReducer(UserReducer, initialState);
 
     //▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-    // LOAD_USER:
+    // LOAD_USER: this will get all the data for the user and place it in state whenever we need
     const loadUser = async () => {
-        // @todo - load token into global headers
-
+        if (localStorage.token) {
+            setAuthToken(localStorage.token);
+        }
         try {
             const res = await axios.get('/api/auth');
 
@@ -51,10 +56,12 @@ const UserState = props => {
                 type: REGISTER_SUCCESS,
                 payload: res.data // token signed in users.js
             });
+
+            loadUser(); // loading user when they register so they don't have to then log in (basically logging in for them)
         } catch (err) {
             dispatch({
                 type: REGISTER_FAIL,
-                payload: err.response.data.msg //this is from users.js error
+                payload: err.response.data.msg // this is from users.js error
             });
         }
     };
@@ -69,7 +76,7 @@ const UserState = props => {
 
     //▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     // CLEAR_ERRORS:
-    const clearErrors = () => console.log('clearError');
+    const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
     //▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     // Set Loading

@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import setAuthToken from './utils/setAuthToken';
 
 // layout
 import Nav from './components/Nav';
@@ -13,17 +14,22 @@ import Login from './components/auth/Login';
 import MainApp from './components/MainApp';
 
 // game modules
-import ABCApp from './components/GameModules/ABCApp';
-import AnimalApp from './components/GameModules/AnimalApp';
-import ClockApp from './components/GameModules/ClockApp';
-import ColorApp from './components/GameModules/ColorApp';
-import MathApp from './components/GameModules/MathApp';
-import NumApp from './components/GameModules/NumApp';
-import PlanetApp from './components/GameModules/PlanetApp';
-import ShapeApp from './components/GameModules/ShapeApp';
+import ABCApp from './components/gameModules/ABCApp';
+import AnimalApp from './components/gameModules/AnimalApp';
+import ClockApp from './components/gameModules/ClockApp';
+import ColorApp from './components/gameModules/ColorApp';
+import MathApp from './components/gameModules/MathApp';
+import NumApp from './components/gameModules/NumApp';
+import PlanetApp from './components/gameModules/PlanetApp';
+import ShapeApp from './components/gameModules/ShapeApp';
 
+// context
 import UserState from './context/user/UserState';
 import AlertState from './context/alert/AlertState';
+
+if (localStorage.token) {
+    setAuthToken(localStorage.token);
+} // saving the users token to local storage
 
 function App() {
     return (

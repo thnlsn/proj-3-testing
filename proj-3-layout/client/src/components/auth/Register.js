@@ -1,13 +1,26 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import UserContext from '../../context/user/userContext';
 import AlertContext from '../../context/alert/alertContext';
 
-const Register = () => {
+const Register = props => {
     const userContext = useContext(UserContext);
-    const { register } = userContext;
+    const { register, error, clearErrors, isAuthenticated } = userContext;
 
     const alertContext = useContext(AlertContext);
     const { setAlert /* removeAlert */ } = alertContext;
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            props.history.push('/mainapp');
+        }
+
+        if (error === 'User already exists') {
+            // setting the error value in state
+            setAlert(error, 'danger'); // calling set alert with the previously set error value
+            clearErrors(); // setting error value back to null
+        }
+        // eslint-disable-next-line
+    }, [error, isAuthenticated, props.history]);
 
     const [user, setUser] = useState({
         name: '',
@@ -29,6 +42,8 @@ const Register = () => {
             setAlert('Please enter all fields', 'danger');
         } else if (password !== password2) {
             setAlert('Passwords do not match', 'danger');
+        } else if (password.length < 6) {
+            setAlert('Password must contain at least 6 characters', 'danger');
         } else {
             register({
                 name,

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import './mainAppStyle.css';
 import { Link } from 'react-router-dom';
 
+import UserContext from '../context/user/userContext';
+
 function MainApp() {
+    const userContext = useContext(UserContext);
+
     return (
         <div>
             <h1>MainApp Page</h1>
